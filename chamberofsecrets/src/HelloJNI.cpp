@@ -1,15 +1,16 @@
 #include <jni.h>
+#include <fstream>
 #include <iostream>
 #include "chamberofsecrets_HelloJNI.h"
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 using namespace cv;
 using namespace std;
-
+//https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html
+//https://stackoverflow.com/questions/29551343/issue-executing-opencv-native-functions-via-jni
 // Implementation of native method sayHello() of HelloJNI class
 JNIEXPORT void JNICALL Java_chamberofsecrets_HelloJNI_sayHello(JNIEnv * env, jobject obj, jstring jstr) {
-	const char *filename = (*env)->GetStringUTFChars(env, jstr, NULL); //Java String to C Style string
+	const char *filename = env->GetStringUTFChars(jstr, NULL); //Java String to C Style string
 	printf("Hello World!\n %s", filename);
 
 	/* File Write*/
@@ -21,7 +22,7 @@ JNIEXPORT void JNICALL Java_chamberofsecrets_HelloJNI_sayHello(JNIEnv * env, job
 	//const string& filename = "C:/upload/sample.mp4";
 	VideoCapture cap(filename);
 	if(!cap.isOpened())// check if we succeeded
-	return 0;
+		return;
 
 	Mat edges;
 	Mat curframe, preframe;
