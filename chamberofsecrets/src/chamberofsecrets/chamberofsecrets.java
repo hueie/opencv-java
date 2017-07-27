@@ -11,14 +11,11 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
 public class chamberofsecrets {
-	
 	public static void main(String[] args) {
-
 		System.load( "D:\\workspace-sts\\chamberofsecrets\\libs\\opencv_java320.dll" );
 		System.load("C:\\Users\\Kait\\git\\opencv-java\\chamberofsecrets\\src\\hello.dll");
-		/*
+		
 		String clientSentence;
-		String capitalizedSentence;
 		ServerSocket welcomeSocket = null;
 		try {
 			welcomeSocket = new ServerSocket(6789);
@@ -36,19 +33,22 @@ public class chamberofsecrets {
 				System.out.println("Finish Image Extract");
 				//capitalizedSentence = clientSentence.toUpperCase() + '\n';
 				//outToClient.writeBytes(capitalizedSentence);
+				
+				//new HelloJNI().sayHello("C:/upload/sample.mp4");
+				MyRunnableClass mrc = new MyRunnableClass();
+				mrc.setFilepath(clientSentence);
+				new Thread(mrc).start();
+				
 			}
 		} catch (Exception e) {
 			try {
 				welcomeSocket.close();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
-		new HelloJNI().sayHello("C:/upload/sample.mp4");
+	
 		
 	}
 }
