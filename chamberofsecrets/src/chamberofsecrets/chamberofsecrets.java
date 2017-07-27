@@ -11,10 +11,12 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
 public class chamberofsecrets {
-
+	
 	public static void main(String[] args) {
 
 		System.load( "D:\\workspace-sts\\chamberofsecrets\\libs\\opencv_java320.dll" );
+		System.load("C:\\Users\\Kait\\git\\opencv-java\\chamberofsecrets\\src\\hello.dll");
+		/*
 		String clientSentence;
 		String capitalizedSentence;
 		ServerSocket welcomeSocket = null;
@@ -45,7 +47,8 @@ public class chamberofsecrets {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		*/
+		new HelloJNI().sayHello("C:/upload/sample.mp4");
 		
 	}
 }
