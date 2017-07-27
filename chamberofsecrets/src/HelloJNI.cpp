@@ -10,17 +10,22 @@ using namespace std;
 //https://stackoverflow.com/questions/29551343/issue-executing-opencv-native-functions-via-jni
 // Implementation of native method sayHello() of HelloJNI class
 JNIEXPORT void JNICALL Java_chamberofsecrets_HelloJNI_sayHello(JNIEnv * env, jobject obj, jstring jstr) {
-	const char *filename = env->GetStringUTFChars(jstr, NULL); //Java String to C Style string
-	printf("Hello World!\n %s", filename);
+	const char *cstr = env->GetStringUTFChars(jstr, NULL); //Java String to C Style string
+	printf("Hello World!\n %s", cstr);
+
+	string fullFilePath(cstr);
+
+	size_t lastindex = fullFilePath.find_last_of(".");
+	string exceptExtensionPath = fullFilePath.substr(0, lastindex);
 
 	/* File Write*/
 	ofstream outputFile;
-	outputFile.open("points.txt");
+	outputFile.open(exceptExtensionPath.append(".txt"));
 
 	namedWindow("clustering",1);
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 	//const string& filename = "C:/upload/sample.mp4";
-	VideoCapture cap(filename);
+	VideoCapture cap(fullFilePath);
 	if(!cap.isOpened())// check if we succeeded
 		return;
 
@@ -36,7 +41,7 @@ JNIEXPORT void JNICALL Java_chamberofsecrets_HelloJNI_sayHello(JNIEnv * env, job
 	int height = curframe.rows;
 	int width = curframe.cols;
 	cout << "height : "<< height << " width : " << width << endl;
-	imwrite("sample1.jpg", curframe);
+	//imwrite("sample1.jpg", curframe);
 	//end
 
 	int cluster_count = 3;//8
@@ -103,8 +108,15 @@ JNIEXPORT void JNICALL Java_chamberofsecrets_HelloJNI_sayHello(JNIEnv * env, job
 		//imshow("clustering", curframe);
 		//2
 		//imshow("clustering", edges);
-		if(waitKey(30) >= 0) break;
 
+		if(waitKey(30) >= 0) {
+			break;
+		}
+		/*
+		if(curframe.empty()){
+			break;
+		}
+*/
 		delete ptmp_points;
 	}
 	outputFile.close();
